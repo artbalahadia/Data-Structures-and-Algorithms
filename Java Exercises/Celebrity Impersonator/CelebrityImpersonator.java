@@ -79,12 +79,16 @@ public class CelebrityImpersonator {
     public static void main(String[] args)
     {
     	Scanner scanner = new Scanner(System.in);
+    	/* 
+    	 * Run program and instructions will be stated accordingly. 
+    	 * User is expected to provide a quote and choose a celebrity to impersonate.
+    	 */
     	
     	System.out.println("Welcome to the Celebrity Impersonator! \n"
     			+ "	This game allows you to enter a quote and choose from our celebrity list to impersonate. \n"
     			+ " Please enter your quote:");
-    	String quote = scanner.nextLine();
-    	scanner.nextLine();
+    	String userQuote = scanner.nextLine();
+
     	System.out.println("Then enter the celebrity options below whom you'd like to impersonate: \n"
     			+ " Canadian \n"
     			+ " Valley Girl \n"
@@ -93,13 +97,16 @@ public class CelebrityImpersonator {
     			+ " Zatanna \n"
     			+ " Yoda \n"
     			+ " Scooby Doo");
-    	String generatorName = scanner.nextLine();
+    	String userGeneratorName = scanner.nextLine();
+    	scanner.close();
     	
     	
     	CelebrityImpersonator ci = new CelebrityImpersonator();
-    	ci.generateQuote(quote, generatorName);
-    	System.out.println(quote);
+    	;
+    	System.out.println(ci.generateQuote(userQuote, userGeneratorName));
     	
+    	
+//		** Default test cases **
 //        CelebrityImpersonator ci = new CelebrityImpersonator();
 //        String quote = "Four score and seven years ago";
 //        System.out.println("Original Quote: \"" + quote + "\"");
