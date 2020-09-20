@@ -61,6 +61,10 @@ public class CelebrityImpersonator {
     			}
     			quote = newWord.trim();
     			break;
+    			// if celebrity input was not among choices
+    		default :
+    			quote = "Celebrity not available. Sorry!";
+    			break;
     	}
         return quote;
     }
@@ -73,7 +77,7 @@ public class CelebrityImpersonator {
          {"Pirate", "FouRRRr scoRRRre and seven yeaRRRrs ago"},
          {"Zatanna", "ruoF erocs dna neves sraey oga"},
          {"Yoda", "score Four seven and ago years"},
-         // adding test for Scooby Doo :)}
+         // adding test for Scooby Doo
          {"Scooby Doo", "Four woof! score woof! woof! and woof! woof! woof! seven woof! woof! woof! woof! years woof! woof! woof! woof! woof! ago woof! woof! woof! woof! woof! woof!"}};
     
     public static void main(String[] args)
