@@ -13,8 +13,8 @@ public class RaffleApp
      */
     public static void main(String[] args)
     {
-        final int NUMBER_OF_ENTRIES = 200;
-        final int MAX_ID            = 20;//Byte.MAX_VALUE;
+        final int NUMBER_OF_ENTRIES = 20;
+        final int MAX_ID            = 10;//Byte.MAX_VALUE;
         Random idGenerator = new Random();
 
         TicketManager manager = new BasicTicketManager();
