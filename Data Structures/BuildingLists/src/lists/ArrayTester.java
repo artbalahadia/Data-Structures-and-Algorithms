@@ -16,7 +16,7 @@ public class ArrayTester
         ArrayTester tester = new ArrayTester();
         
         // Create an instance of your list to test here!
-        SimplifiedList listUnderTest = new MyArrayList();
+        SimplifiedList listUnderTest = new MyArray();
         
         tester.testHappyPaths(listUnderTest);
         tester.testEmpty(listUnderTest);

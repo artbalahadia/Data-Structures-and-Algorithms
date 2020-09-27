@@ -9,29 +9,54 @@ package lists;
 public class MyArray implements AdvancedList
 {
 	
-	
+	private Object[] myArray = new Object[0];
+	private int size = myArray.length;
+
     
     @Override
     public int size()
     {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isEmpty()
     {
-        return true;
+    	if(myArray.length == 0) {
+    		return true;
+    	} else if(myArray[0] == null) {
+    		return true;
+    	}
+    	return false;
     }
 
     @Override
     public boolean add(Object e)
     {
-        return false;
+    	if(myArray.length == 0) {
+    		size++;
+    		Object[] tempArray = new Object[size];
+    		myArray = tempArray;
+    		myArray[size-1] = e;
+    		return true;
+    	} else if(myArray.length > 0){
+    		size++;
+    		Object[] tempArray = new Object[size];
+    		for(int i = 0; i < size-1; i++) {
+    			tempArray[i] = myArray[i];
+    		}
+    		myArray = tempArray;
+    		myArray[size-1] = e;
+    		return true;
+    	}
+
+    	return false;
     }
 
     @Override
     public Object remove(int index)
     {
+    	
         return null;
     }
 
