@@ -6,14 +6,14 @@ import java.util.ArrayList;
  *
  * @author Tony
  */
-public class ListTester
+public class ArrayTester
 {
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args)
     {
-        ListTester tester = new ListTester();
+        ArrayTester tester = new ArrayTester();
         
         // Create an instance of your list to test here!
         SimplifiedList listUnderTest = new MyArrayList();

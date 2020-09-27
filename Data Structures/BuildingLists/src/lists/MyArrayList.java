@@ -1,26 +1,28 @@
 package lists;
+
 import java.util.*;
+
 //import lists.solutions.*;
 
 /**
  *
  * @author Tony
  */
-public class MyList implements AdvancedList
+public class MyArrayList implements AdvancedList
 {
 	
-	private List<Object> myList = new ArrayList<Object>();
+	private List<Object> myArrayList = new ArrayList<Object>();
     
     @Override
     public int size()
     {
-        return myList.size();
+        return myArrayList.size();
     }
 
     @Override
     public boolean isEmpty()
     {
-        return myList.isEmpty();
+        return myArrayList.isEmpty();
     }
 
     @Override
@@ -28,7 +30,7 @@ public class MyList implements AdvancedList
     {
     	// checks if object isn't null, then add if so
     	if(e != null) {
-    		myList.add(e);
+    		myArrayList.add(e);
     		return true;
     	}
     	return false;
@@ -38,14 +40,14 @@ public class MyList implements AdvancedList
     public Object remove(int index)
     {
     	// checks if list is empty and within bounds, then removes object at index
-    	if(myList.isEmpty() || index >= myList.size() || index < 0) {
+    	if(myArrayList.isEmpty() || index >= myArrayList.size() || index < 0) {
     		return null;
     	}
-    	Object removedItem = myList.get(index);
+    	Object removedItem = myArrayList.get(index);
         if(removedItem == null) {
         	return null;
         } else {
-        	myList.remove(index);
+        	myArrayList.remove(index);
     	}
     	return removedItem;
 
@@ -54,19 +56,19 @@ public class MyList implements AdvancedList
     @Override
     public void clear()
     {
-    	myList.clear();
+    	myArrayList.clear();
     }
 
     @Override
     public Object get(int index)
     {
     	// checks if list is empty and within bounds, then returns the object at index
-    	if(myList.isEmpty() || index >= myList.size() || index < 0) {
+    	if(myArrayList.isEmpty() || index >= myArrayList.size() || index < 0) {
     		return null;
     	}
 
-    	if(myList.get(index) != null) {
-    		return myList.get(index);
+    	if(myArrayList.get(index) != null) {
+    		return myArrayList.get(index);
     	}
         return null;
     }
@@ -75,12 +77,12 @@ public class MyList implements AdvancedList
     public Object set(int index, Object element)
     {
     	// checks if list is empty and within bounds, then updates object at index with element
-    	if(myList.isEmpty() || index >= myList.size() || index < 0) {
+    	if(myArrayList.isEmpty() || index >= myArrayList.size() || index < 0) {
     		return null;
     	}
-    	Object setItem = myList.get(index);
+    	Object setItem = myArrayList.get(index);
     	if(setItem != null && element != null) {
-    		myList.set(index, element);
+    		myArrayList.set(index, element);
     	}
         return setItem;
     }
@@ -88,10 +90,14 @@ public class MyList implements AdvancedList
     @Override
     public boolean remove(Object o)
     {
-    	if(myList.contains(o)) {
-    		Object removeItem = myList.indexOf(o);
+    	/*
+    	 *  checks if list contains the object and assigns a variable to get the index of the object.
+    	 *  Then uses that variable to remove the object.
+    	 */
+    	if(myArrayList.contains(o)) {
+    		Object removeItem = myArrayList.indexOf(o);
         	if(removeItem != null) {
-        		myList.remove(removeItem);
+        		myArrayList.remove(removeItem);
         		return true;
         	} 
     	}
@@ -103,7 +109,7 @@ public class MyList implements AdvancedList
     public boolean contains(Object o)
     {
     	if(o != null) {
-    		if(myList.contains(o)) {
+    		if(myArrayList.contains(o)) {
         		return true;
         	}
     	}
@@ -115,7 +121,7 @@ public class MyList implements AdvancedList
     public int indexOf(Object o)
     {
     	if(o != null) {
-    		return myList.indexOf(o);
+    		return myArrayList.indexOf(o);
     	}
         return -1;
     }
@@ -124,7 +130,7 @@ public class MyList implements AdvancedList
     public int lastIndexOf(Object o)
     {
     	if(o != null) {
-    		return myList.lastIndexOf(o);
+    		return myArrayList.lastIndexOf(o);
     	}
         return -1;
     }
