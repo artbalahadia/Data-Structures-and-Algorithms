@@ -7,7 +7,11 @@ package lists;
  */
 public class MyLinkedList implements AdvancedList
 {
-
+	/*
+	 * Our linkedlist will consist of Nodes beginning from a head that has a property of item (the Object) and a next (that serves as
+	 * the linking node). The size property will keep track of the number of nodes in our list and will be incremented/decremented
+	 * as we add and remove nodes.
+	 */
 	private Node head;
 	private Node tail;
 	private int size;
@@ -32,6 +36,9 @@ public class MyLinkedList implements AdvancedList
     @Override
     public boolean add(Object e)
     {
+    	/*
+    	 * Adds a node at the end of the list (enqueue)
+    	 */
     	Node oldTail = tail;
     	tail = new Node();
     	tail.item = e;
@@ -49,6 +56,10 @@ public class MyLinkedList implements AdvancedList
     @Override
     public Object remove(int index)
     {
+    	/*
+    	 * Removes a node at an index using a loop that checks each "next" node. The iteration stops at the node before 
+    	 * the index and changes its next to the index's next (if a node is available). 
+    	 */
     	if(isEmpty() || index < 0 || index > size) {
     		return null;
     	}
@@ -98,6 +109,7 @@ public class MyLinkedList implements AdvancedList
     @Override
     public Object get(int index)
     {
+    	// loops through the list until we hit index and returns the item of the node at index
     	if(isEmpty() || index < 0 || index > size) {
     		return null;
     	}
@@ -118,14 +130,13 @@ public class MyLinkedList implements AdvancedList
     @Override
     public Object set(int index, Object element)
     {
+    	// loops through the list until we hit index and changes the item of the node at index
     	if(isEmpty() || index < 0 || index > size) {
     		return null;
     	}
     	
     	Node tempNode = head;
-    	
-
-    	
+    
     	for(int i = 0; i <= index; i++) {
     		if(i == index) {
     			Object oldItem = tempNode.item;
@@ -141,6 +152,7 @@ public class MyLinkedList implements AdvancedList
     @Override
     public boolean remove(Object o)
     {
+    	// same implementation as remove(index), but uses object parameter in the loop to find the matching node.
     	if(isEmpty() || !contains(o)) {
     		return false;
     	}

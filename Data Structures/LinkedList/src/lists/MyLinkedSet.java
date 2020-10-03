@@ -7,7 +7,29 @@ package lists;
  */
 public class MyLinkedSet implements AdvancedList
 {
-
+	/*
+	 * This list implements a linkedlist with a functionality of a set. Each addition to the linkedlist is checked if a duplicate
+	 * exists - in order to mimic the same ruling of a set. 
+	 * 
+	 * This linkedlist implements the same methods as our previous list EXCEPT our add and set methods, will validates if there are
+	 * existing nodes with the same item before adding/udpating.
+	 * 
+	 * Having the same tester class, we receive a few errors due to the difference in functionality.
+	 * 		+ get/set/remove(object) -  since our set does not accept similar items, the size does not reflect the test cases
+	 * 				which refers to the size of the array with the objects to be added (i.e. advancedValues[]). This causes index
+	 * 				parameters to throw an error because it will not check the same position.
+	 * 		+ lastIndexOf - will always be an error because we will only have one instance of each object in our set.
+	 * 
+	 * Conclusion
+	 * 			With this project we are able to compare the implementations of a linkedlist and a set. Each data structure has its
+	 * 		own purpose and should be used according to the type of program we're creating. A linkedlist is a list of connected elements
+	 * 		that accepts similar elements. While a set contains only one instance of an element. If we are to create a program that will
+	 * 		only have distinct values - a bank account application for example, then we would rather have a set. On the other hand, if
+	 * 		we are creating an "entry" list which has multiple instances, then a linkedlist will suit better. In conclusion, the usage
+	 * 		really depends on what we are trying to implement, from there we can easily distinguish which data structure would suit
+	 * 		better.
+	 * 
+	 */
 	private Node head;
 	private Node tail;
 	private int size;
@@ -32,6 +54,11 @@ public class MyLinkedSet implements AdvancedList
     @Override
     public boolean add(Object e)
     {
+    	if(contains(e)) {
+    		System.out.println("Unable to add because " + e.toString() + " is already in the set.");
+    		return false;
+    	}
+    	
     	Node oldTail = tail;
     	tail = new Node();
     	tail.item = e;
@@ -42,7 +69,7 @@ public class MyLinkedSet implements AdvancedList
     		oldTail.next = tail;
     	}
     	size++;
-//    	System.out.println(tail.item.toString() + " has been added");
+    	System.out.println(tail.item.toString() + " has been added");
     	return true;
     }
 
@@ -124,7 +151,10 @@ public class MyLinkedSet implements AdvancedList
     	
     	Node tempNode = head;
     	
-
+    	if(contains(element)) {
+    		System.out.println("Unable to update index " + index + " because " + element.toString() + " is already in the set.");
+    		return null;
+    	}
     	
     	for(int i = 0; i <= index; i++) {
     		if(i == index) {
