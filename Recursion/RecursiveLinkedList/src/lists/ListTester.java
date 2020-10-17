@@ -114,7 +114,6 @@ public class ListTester
                     System.out.printf("Happy Path Test - add(%s) returned false when expected true\n", value);
                 }
                 int size = list.size();
-                System.out.println(count + " is count and size is " + size);
                 if (size != count)
                 {
                     passed = false;
@@ -207,7 +206,7 @@ public class ListTester
                 {
                     passed = false;
                     System.out.printf("Happy Path Test - remove(forward) failed- got %s, expected %s\n", value, testValues[i]);
-                }
+                }   
             }
 
             fillList(list, testValues);
@@ -218,7 +217,7 @@ public class ListTester
                 {
                     passed = false;
                     System.out.printf("Happy Path Test - remove(backward) failed- got %s, expected %s\n", value, testValues[i]);
-                }
+                } 
             }
 
             fillList(list, testValues);
