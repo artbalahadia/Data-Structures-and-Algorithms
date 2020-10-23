@@ -36,13 +36,17 @@ public class Calculator
 			
 			
 			String value = commands.remove(0);
-			System.out.println(value);
+//			System.out.println(value);
 			
 			if(value == " ") {
 				continue;
 			}
 			
 			switch(value) {
+				/*
+				 * If value from commands list is a number, push value to stack. Otherwise if value is an operator, we pop the last
+				 * two numbers (if present) and perform the operation. Then push the result to the stack.
+				 */
 				case "+":
 				case "-":
 				case "*":
