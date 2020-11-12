@@ -137,9 +137,9 @@ public class SortingTests
 	
 	public static void main(String[] args) 
 	{
-//		Sorter[] tests = {new BubbleSort(), new InsertionSort(), new SelectionSort(), new ShellSort(),  
-//					 	  new MergeSort(), new QuickSort(), new HeapSort()};
-		Sorter[] tests = { new HeapSort()};
+		Sorter[] tests = {new BubbleSort(), new InsertionSort(), new SelectionSort(), new ShellSort(),  
+					 	  new MergeSort(), new QuickSort(), new HeapSort()};
+
 
 		boolean success = true;
 		SortingTests test = new SortingTests();

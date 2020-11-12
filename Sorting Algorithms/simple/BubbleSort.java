@@ -10,11 +10,7 @@ public class BubbleSort extends SorterBase
 	public void sort(Comparable[] target) 
 	{
 //		Arrays.sort(target);
-//		
-//		/*
-//		 *  i = end | j = start
-//		 */
-//		
+	
 		for(int i = target.length-1; i > 0; i--) {
 			for(int j = 0; j < i; j++) {
 				if(target[j].compareTo(target[j+1]) > 0) {

@@ -9,6 +9,7 @@ public class InsertionSort extends SorterBase
 	@Override
 	public void sort(Comparable[] target) 
 	{
+//		Arrays.sort(target);
 		
 		for(int i = 1; i < target.length; i++) {
 			Comparable startRef = target[i];
