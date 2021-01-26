@@ -133,8 +133,52 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 	 * ToDo 2   write a non-recursive implementation of put
          * 
          *   you must fully document this method to receive credit
+         *   
+         *   In this non-recursive function, we use a while loop to find the leaf/placement for the key
+         *   to be added. We will have two pointers, one that peeks ahead and leads to the empty spot   
+         *   for our new Node (x), and another to reference its parent (parent). X will traverse through 
+         *   the list/tree, comparing each existing Node's key to the key we're adding - which points us 
+         *   to either left or right. If the key is already in the list, we only update the value. Otherwise  
+         *   we will eventually reach a null and exit our loop. From there we assign the new Node to parent's  
+         *   left (if less) or right (if greater). 
+         *   
 	 */
 	public void put(Key key, Value val) {
+		if(key == null) {				// check if key is appropriate
+			throw new NullPointerException();	
+		}
+		
+		Node N = new Node(key,val);
+
+		if(root == null) {				// if tree is empty
+			root = N;
+			return;
+		}
+		
+		Node x = root;					// reference to the new key 
+		Node parent = null;				// parent of the new key
+		
+		// as documented above 
+		while(x != null) {
+			parent = x;
+			int cmp = key.compareTo(x.key);
+			if(cmp < 0) {
+				x = x.left;
+			} else if (cmp > 0) {
+				x = x.right;
+			} else {
+				x.val = val;
+				return;
+			}
+		}
+		
+		int cmp = key.compareTo(parent.key);
+		if(cmp < 0) {
+			parent.left = N;
+		} else {
+			parent.right = N;
+		}
+		
 		return;    // To Do 2  complete this method
 	}
 
@@ -148,7 +192,21 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 	 */
 	public int numNodesWithExactlyOneChild() {
 		
-		return -1; // ToDo 3 complete this method
+		return numNodesWithExactlyOneChildHelper(root); // ToDo 3 complete this method
+	}
+	
+	private int numNodesWithExactlyOneChildHelper(Node x) {
+		if(x == null) {
+			return 0;
+		}
+		
+		if(x.left != null && x.right == null) {						// case for left
+			return 1 + numNodesWithExactlyOneChildHelper(x.left);
+		} else if(x.left == null && x.right != null) {				// case for right
+			return 1 + numNodesWithExactlyOneChildHelper(x.right);
+		} else {													// if left and right are present
+			return numNodesWithExactlyOneChildHelper(x.left) + numNodesWithExactlyOneChildHelper(x.right);
+		}
 	}
 	
 	/** numberOfNodesAtDepth
@@ -163,7 +221,11 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 	 * ToDo 4
 	 */
 	public int numNodesAtDepth(int d) {
-		return -1; // ToDo 4  complete this method
+		return numNodesAtDepthHelper(d, root); // ToDo 4  complete this method
+		
+	}
+	
+	public int numNodesAtDepthHelper(int d, Node x) {
 		
 	}
 	
