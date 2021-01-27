@@ -221,12 +221,20 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 	 * ToDo 4
 	 */
 	public int numNodesAtDepth(int d) {
-		return numNodesAtDepthHelper(d, root); // ToDo 4  complete this method
+		return numNodesAtDepthHelper(d, 0, root); // ToDo 4  complete this method
 		
 	}
 	
-	public int numNodesAtDepthHelper(int d, Node x) {
-		
+	public int numNodesAtDepthHelper(int d, int z, Node x) {
+		if(x == null) {
+			return 0;
+		}
+		if(d != z) {							// keep moving down the tree until we reach depth
+			z++;
+			return numNodesAtDepthHelper(d, z, x.left) + numNodesAtDepthHelper(d, z, x.right);
+		}
+		//System.out.println(x.key);
+		return 1;								// count at depth
 	}
 	
 	/**
@@ -246,9 +254,35 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 	 * 
 	 */
 	public void delete(Key key) {
-		StdOut.println(" delete not implemented ");
+		
+		root = deleteHelper(key, root);
+		
 		return;  // ToDo 5  complete this method
 	}
+	
+	private Node deleteHelper(Key key, Node x) {
+		
+		if(key == null || x == null) {			// check for valid inputs
+			return null;
+		}
+		
+		int cmp = key.compareTo(x.key);			
+		if(cmp < 0) {							// search left
+			x.left = deleteHelper(key, x.left);
+		} else if (cmp > 0) {					// search right
+			x.right = deleteHelper(key, x.right);
+		} else {								// equal key found
+			if(x.left == null) {				// if left is empty
+				return x.right;
+			}
+			Node g = x;							// put deleteNode in memory
+			x = max(x.left);					// set x to predecessor
+			x.left = deleteMax(g.left);			// remove predecessor
+			x.right = g.right;					// link predecessor's right to new node's right
+		}
+		return x;
+	}
+	
 
 	
 	/** max
