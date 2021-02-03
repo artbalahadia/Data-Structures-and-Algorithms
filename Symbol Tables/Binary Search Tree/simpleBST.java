@@ -209,6 +209,26 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 		}
 	}
 	
+	
+	/*
+	 * numNodesWithTwoChildren - determine the nodes that have exactly two children
+	 */
+	public int numNodesWithTwoChildren() {
+		return numNodesWithTwoChildrenHelper(root);
+	}
+	
+	private int numNodesWithTwoChildrenHelper(Node x) {
+		if(x == null) {
+			return 0;
+		}
+		if(x.left != null && x.right != null) {						// count if left and right are available
+			return 1 + numNodesWithTwoChildrenHelper(x.left) + numNodesWithTwoChildrenHelper(x.right);
+		} else {													// otherwise keep traversing
+			return numNodesWithTwoChildrenHelper(x.left) + numNodesWithTwoChildrenHelper(x.right);
+		}
+	}
+	
+	
 	/** numberOfNodesAtDepth
 	 * 
 	 * Returns the number of nodes with depth == d
@@ -235,6 +255,26 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 		}
 		//System.out.println(x.key);
 		return 1;								// count at depth
+	}
+	
+	/*
+	 * numNodesDeeperThan - determine the number of nodes that are at depth greater than 
+	 * some value ( passed as a parameter )
+	 */
+	public int numNodesDeeperThan(int d) {
+		return numNodesDeeperThanHelper(d, 0, root);
+	}
+	
+	private int numNodesDeeperThanHelper(int d, int x, Node n) {
+		if(n == null) {
+			return 0;
+		}
+		if(d > x) {								// keep moving down the tree until we go beyond depth
+			x++;
+			return numNodesDeeperThanHelper(d, x, n.left) +  numNodesDeeperThanHelper(d, x, n.right);
+		}
+		
+		return 1;								// count nodes deeper than depth
 	}
 	
 	/**
@@ -337,6 +377,7 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 		else              x.val   = val;
 		return x;
 	}
+	
 
 	/* main calls all the testing functions */
 
@@ -356,6 +397,7 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 		numNodesWithExactlyOneChildTests();
 		numNodesAtDepthDTests();
 		deleteTests();
+		numNodesWithTwoChildrenTests();
 	}
 
 	/* ioKeysTests
@@ -411,6 +453,22 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 		testNumNodesWithExactlyOneChild("EAIDFBHCG", 6);
 		StdOut.println("----------- numNodesWithExactlyOneChild tests  completed");
 	}
+	
+	
+	/* 	numNodesWithTwoChildrenTests
+	 * 
+	 *  parameters to 	testNumNodesWithTwoChildren
+	 * 1:  String of keys & values to add to a symbol table in order left-to-right
+	 * 2:  expected number of nodes with exactly one child
+	 */
+	public static void numNodesWithTwoChildrenTests() {
+		testNumNodesWithTwoChildren("C", 0);  
+		testNumNodesWithTwoChildren("CA", 0);
+		testNumNodesWithTwoChildren("BAC", 1);
+		testNumNodesWithTwoChildren("DBACE", 2);
+		StdOut.println("----------- numNodesWithTwoChildren tests  completed");
+	}
+	
 
 	/* 	numNodesAtDepth Tests
 	 * 
@@ -506,11 +564,37 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 
 		if ( actual == expected)  {// test passes
 			if (verbose)
+				StdOut.format("testNumNodesWithTwoChildren: Correct   Keys: [ %s ]   actual: %d\n", keys, actual);
+		}
+		else
+			StdOut.format("testNumNodesWithTwoChildren: *Error*   Keys: [ %s ]   expected: %d  actual: %d\n", keys, expected, actual);
+	}
+	
+	
+	/**
+	 *  testNumNodesWithExactlyTwoChild 
+	 * param keys: all substrings of keys of length 1 are added to the ST
+	 * param expected:  the correct result for this input string
+	 */
+	public static void testNumNodesWithTwoChildren( String keys, int expected ) {
+
+		// create and populate the table from the input string 
+		simpleBST<String,String> aTree = from(keys,keys);
+		//  do the test
+		int actual = aTree.numNodesWithTwoChildren();
+
+		if ( actual == expected)  {// test passes
+			if (verbose)
 				StdOut.format("testNumNodesWithExactlyOneChild: Correct   Keys: [ %s ]   actual: %d\n", keys, actual);
 		}
 		else
 			StdOut.format("testNumNodesWithExactlyOneChild: *Error*   Keys: [ %s ]   expected: %d  actual: %d\n", keys, expected, actual);
 	}
+	
+	
+	
+	
+	
 	/**
 	 *  testnumNodesAtDepth 
 	 * param keys: all substrings of keys of length 1 are added to the ST
