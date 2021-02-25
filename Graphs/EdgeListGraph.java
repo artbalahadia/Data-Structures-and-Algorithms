@@ -42,7 +42,8 @@ import algs13.Queue;
  *  Order of growth  answers go here
  *   - addEdge = E ; The implementation uses the hasEdge method to validate if an Edge is already in the list and therefore is dependent to the size of E
  *   - hasEdge = E ; We will iterate through the entire list of edges to check if a specific edge is in the list
- *   - delete = E ; We use the hasEdge to locate the Edge to delete
+ *   - delete = E ; We use the hasEdge method to locate the Edge to delete, once found and if present - we then remove that specific edge from the list.
+ *   				The amount of deletions will grow depending on the number of edges in the list, which makes this depenedent to E.
  *   - E = E ; The built-in size() function of theEdges, that is a linkedlist, is O(n) which in this case is n = E
  *   - adj = E ; We iterate through the Edge list to check for a specific v's neighbors and store it in an iterable (Queue)
  *   - degree = E ; Like adj, we iterate and check for a specific v's neighbors but instead we count and return the number of neighbors
@@ -111,13 +112,25 @@ public class ELGraph {   // an EdgeList Graph
 		if (u < 0 || u >= V) throw new IndexOutOfBoundsException();
 		
 		Edge checkEdge = new Edge(u,v);
-		Iterator i = theEdges.iterator();
 		
-		while(i.hasNext()) {
-			if(i.next().equals(checkEdge)) {			// "equals" method of Edge checks for u and v (vice versa)
+		/*
+		 * Solution 1: Using iterator
+		 * Iterator i = theEdges.iterator();
+		 *
+		 *	while(i.hasNext()) {
+		 *		if(i.next().equals(checkEdge)) {			// "equals" method of Edge checks for u and v (vice versa)
+		 *			return true;
+		 *		}
+		 *	}
+		 */
+
+		// Solution 2: Using forEach
+		for(Edge edge : theEdges) {
+			if(edge.equals(checkEdge)) {
 				return true;
 			}
 		}
+
 		//ToDo 2.  implement this method
 		return false;
 	}
@@ -165,14 +178,27 @@ public class ELGraph {   // an EdgeList Graph
 		if (v < 0 || v >= V) throw new IndexOutOfBoundsException();
 		
 		Queue<Integer> myAdj = new Queue<>();	// Iterable list of choice to store neighbors
-		Iterator i = theEdges.iterator();
 		
-		while(i.hasNext()) {					// Check each Edge's v and u to capture neighbors
-			Edge checkEdge = (Edge) i.next();
-			if(checkEdge.v == v) {
-				myAdj.enqueue(checkEdge.u);
-			} else if(checkEdge.u == v) {
-				myAdj.enqueue(checkEdge.v);
+		/*
+		* Solution 1: Using iterator
+		* Iterator i = theEdges.iterator();
+		*
+		* while(i.hasNext()) {					// Check each Edge's v and u to capture neighbors
+		*	 Edge checkEdge = (Edge) i.next();
+		*	 if(checkEdge.v == v) {
+		*	 	 myAdj.enqueue(checkEdge.u);
+		*	 } else if(checkEdge.u == v) {
+		*		 myAdj.enqueue(checkEdge.v);
+		*	 }
+		* }
+		*/
+		
+		// Solution 2: Using forEach
+		for(Edge edge : theEdges) {
+			if(edge.v == v) {
+				myAdj.enqueue(edge.u);
+			} else if(edge.u == v) {
+				myAdj.enqueue(edge.v);
 			}
 		}
 		// ToDo 5    implment this method
@@ -189,17 +215,29 @@ public class ELGraph {   // an EdgeList Graph
 	public int degree(int v) {
 		if (v < 0 || v >= V) throw new IndexOutOfBoundsException();
 		
-		Iterator i = theEdges.iterator();
 		int vDegree = 0;
 		
-		while(i.hasNext()) {
-			Edge checkEdge = (Edge) i.next();
-			if(checkEdge.v == v || checkEdge.u == v) {
+		/*
+		 * Iterator i = theEdges.iterator();
+		 *
+		 *	while(i.hasNext()) {
+		 *		Edge checkEdge = (Edge) i.next();
+		 *		if(checkEdge.v == v || checkEdge.u == v) {
+		 *			vDegree++;
+		 *		}
+		 *	}
+		 *
+		 */
+		
+		for(Edge edge : theEdges) {
+			if(edge.v == v || edge.u == v) {
 				vDegree++;
 			}
 		}
+
 		return vDegree;  // To Do 6    implement this method
 	}
+		
 
 
 	/* perform tests
