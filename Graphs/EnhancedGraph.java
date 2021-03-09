@@ -33,18 +33,22 @@ import java.util.LinkedList;
  * You must not change the declaration of any method.
  * You may add your own utility instance methods if you want
  * 
- *   Your name goes here
+ *   Art Balahadia
  *  
  *  Delete one of the following:
  *  A) The work submitted here is solely mine. 
- *  B) I had *some* help on the following parts (list them!) of this assignment
+ *  
  *  
  *  Order of growth  answers go here
- *  addEdge
- *  deleteEdge
- *  hasEdge
- *  addVertex
- *  deleteVertex
+ *  addEdge = O(1) - Since adding an edge is independent to the size of the lists, the order of growth is constant
+ *  deleteEdge = O(1) - Like addEdge, deleting an edge is independent to the size of the lists, therefore constant
+ *  hasEdge = O(1) - Checking an edge is independent to the size of the lists, since we are not iterating through each vertex but
+ *  					are simply referencing the specific vertices involved
+ *  addVertex = V - Since the worst case would be that there are no available vertices and we will add a new vertex, which
+ *  					results into resizing the array, the order of growth would depend on V
+ *  deleteVertex = V - Deleting a vertex means that we not only delete the vertex, but also the edges involving the vertex (by
+ *  					not iterating through the edges but using the "contains" method for each arraylist), which means the
+ *  					order of growth will depend on the number of vertices 
  */
 
 
@@ -108,10 +112,13 @@ public class GraphPP {   // Graph++   - incrementally better than the old Graph
 			adjE[v].add(w);
 			adjE[w].add(v);
 			return true;
+		} else {
+			StdOut.println("Edge " + v + " - " + w + " is already in the list.");
+			return false;
 		}
 		
 		//ToDo 1.  implement this method
-		return false;
+		
 	}
 
 	/**
@@ -131,13 +138,16 @@ public class GraphPP {   // Graph++   - incrementally better than the old Graph
 		
 		if(isValid(v) && isValid(w) && adjE[v].contains(w) && adjE[w].contains(v)) {		// checks all MUSTs as outlined above
 			E--;
-			adjE[v].remove(w);
-			adjE[w].remove(v);
+			adjE[v].remove(Integer.valueOf(w));
+			adjE[w].remove(Integer.valueOf(v));
 			return true;
+		} else {
+			StdOut.println("Edge " + v + " - " + w + " is not in the list.");
+			return false;
 		}
 		
 		//ToDo 2.  implement this method
-		return false;
+		
 	}
 	/*
 	 * hasEdge  
@@ -150,6 +160,7 @@ public class GraphPP {   // Graph++   - incrementally better than the old Graph
 		if (w < 0 || w >= V) throw new IndexOutOfBoundsException();
 		
 		if(isValid(v) && isValid(w) && adjE[v].contains(w) && adjE[w].contains(v)) {		// checks all MUSTs as outlined above
+			StdOut.println("Edge: " + v + " - " + w + " exists.");
 			return true;
 		}
 		//ToDo 3.  implement this method
@@ -172,10 +183,11 @@ public class GraphPP {   // Graph++   - incrementally better than the old Graph
 		if(av.isEmpty()) {
 			nv = V++;
 			ArrayList<Integer>[] tempArr = new ArrayList[V];
-			for(int i = 0; i < V; i++) {
-				adjE[i] = tempArr[i];
+			for(int i = 0; i < nv; i++) {
+				tempArr[i] = adjE[i];
 			}
-			adjE = tempArr;
+			tempArr[nv] = new ArrayList<Integer>();
+			adjE = tempArr;	
 		} else {
 			nv = av.pop();
 			adjE[nv] = new ArrayList<Integer>();
@@ -201,14 +213,17 @@ public class GraphPP {   // Graph++   - incrementally better than the old Graph
 		if(adjE[v] != null && v >= 0 && v < V) {
 			for(int i = 0; i < V; i++) {
 				if(adjE[i].contains(v)) {
-					adjE[i].remove(v);
+					E--;
+					adjE[i].remove(Integer.valueOf(v));
+				}
+				if(i == v) {
+					adjE[i].clear();
 				}
 			}
-			adjE[v] = null;
-			av.add(v);
 		}
+		StdOut.println("Vertex " + v + " is now available for reuse.");
 		//ToDo 5   implement this method
-		return false;
+		return av.add(v);
 	}
 
 	/*
@@ -220,8 +235,7 @@ public class GraphPP {   // Graph++   - incrementally better than the old Graph
 	public Iterable<Integer> adj(int v) {
 		// ToDo 6 fix/implement this method
 		if (v < 0 || v >= V) throw new IndexOutOfBoundsException();
-
-		return null;
+		return adjE[v];
 	}
 
 
@@ -269,6 +283,20 @@ public class GraphPP {   // Graph++   - incrementally better than the old Graph
 		StdOut.println( "actual graph info");
 		StdOut.println( G);
 		//G.toGraphviz ("g.png");
+		
+		// Test cases
+		//G.addVertex();
+		//G.deleteVertex(9);
+		//G.addEdge(0, 7);
+		//G.addEdge(0, 5);		// test addEdge for existing edge
+		//G.deleteEdge(0, 6);
+		//G.deleteEdge(0, 7);		// test deleteEdge for non-existing edge
+		G.hasEdge(4, 5);
+		StdOut.println( G);
+		//StdOut.println("Test for adj method: (Print adj of vertex 0)");
+		//for(int i : G.adj(0)) {
+		//	StdOut.print(i + " ");
+		//}
 
 	}
 
